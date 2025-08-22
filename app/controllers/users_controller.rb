@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+  before_action :authenticate_user!, only: [:show]
+
 	def create
 		user = User.new(user_params)
 		if user.save
@@ -7,6 +10,10 @@ class UsersController < ApplicationController
 		else
 			render json: { errors: user.errors }, status: :unprocessable_entity
 		end
+	end
+
+	def show
+		render json: { user: {id: current_user.id, name: current_user.name, email: current_user.email }}, status: :ok
 	end
 
 	private
