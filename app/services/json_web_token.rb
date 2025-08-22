@@ -16,7 +16,7 @@ class JsonWebToken
 	def self.decode(token)
 		return nil if token.blank?
 
-		body, = JWT.decode(token, secret_key, true, { algorithm: "HS256", iss: ISSUER, verify_issuer: true })
+		body, = JWT.decode(token, secret_key, true, { algorithm: "HS256", iss: ISSUER, verify_iss: true })
 		HashWithIndifferentAccess.new(body)
 	rescue JWT::ExpiredSignature
 	  raise
